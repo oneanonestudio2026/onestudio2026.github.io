@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>one² studio</title>
+    <!-- Font Awesome 圖示庫 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #F6F3EE;      /* 背景米白 */
+            --card-bg: #FCFAF7;       /* 卡片奶白 */
+            --text-main: #4D4D4D;     /* 主文字深灰 */
+            --text-sub: #8C8C8C;      /* 次要文字淺灰 */
+            --logo-gold: #C7A54A;     /* Logo 金色 */
+            --mountain-green: #6B7B55;/* 山的綠色 */
+            --border-gold: #E2D3B4;   /* 按鈕淡金色 */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", "Noto Sans TC", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 460px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- 品牌 Header 區塊 --- */
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+            animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 品牌頭像 / Logo 標誌區 */
+        .avatar-box {
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 2px solid var(--logo-gold);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 16px;
+            box-shadow: 0 6px 16px rgba(199, 165, 74, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .avatar-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--logo-gold);
+            letter-spacing: -0.5px;
+        }
+
+        .logo-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-main);
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .subtitle {
+            font-size: 0.85rem;
+            color: var(--mountain-green);
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+
+        /* --- 連結列表區塊 --- */
+        .links-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        /* 按鈕卡片 */
+        .link-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            min-height: 64px;
+            padding: 12px 20px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-gold);
+            border-radius: 18px;
+            text-decoration: none;
+            color: var(--text-main);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            position: relative;
+            overflow: hidden;
+
+            /* 初始滑入動畫 */
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+
+        /* 左側圖示 */
+        .icon-wrapper {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background-color: rgba(107, 123, 85, 0.08);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--mountain-green);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+
+        /* 中間文字區（主標 + 副標） */
+        .text-wrapper {
+            flex-grow: 1;
+            text-align: center;
+            padding: 0 12px;
+        }
+
+        .main-text {
+            font-size: 0.98rem;
+            font-weight: 600;
+            color: var(--text-main);
+            display: block;
+            line-height: 1.2;
+        }
+
+        .sub-text {
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            margin-top: 3px;
+            display: block;
+        }
+
+        /* 右側箭頭 */
+        .arrow-icon {
+            font-size: 0.9rem;
+            color: #C5C5C5;
+            flex-shrink: 0;
+            transition: transform 0.25s ease, color 0.25s ease;
+        }
+
+        /* --- 互動微動畫 --- */
+        .link-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(199, 165, 74, 0.12);
+            border-color: var(--logo-gold);
+        }
+
+        .link-card:hover .icon-wrapper {
+            background-color: var(--mountain-green);
+            color: #FFFFFF;
+        }
+
+        .link-card:hover .arrow-icon {
+            color: var(--logo-gold);
+            transform: translateX(3px);
+        }
+
+        .link-card:active {
+            transform: scale(0.97) translateY(0);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+        }
+
+        /* 動畫延遲 */
+        .link-card:nth-child(1) { animation-delay: 0.1s; }
+        .link-card:nth-child(2) { animation-delay: 0.2s; }
+        .link-card:nth-child(3) { animation-delay: 0.3s; }
+        .link-card:nth-child(4) { animation-delay: 0.4s; }
+        .link-card:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.92); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes slideUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- 品牌區塊 -->
+        <header class="header">
+            <div class="avatar-box">
+                <span class="avatar-text">one²</span>
+            </div>
+            <h1 class="logo-title">one² studio</h1>
+            <p class="subtitle">SELECT SHOP</p>
+        </header>
+
+        <!-- 連結按鈕區 -->
+        <main class="links-container">
+            
+            <!-- Instagram -->
+            <a href="instagram://user?username=one2studio2026" 
+               onclick="setTimeout(function(){ window.location.href='https://www.instagram.com/one2studio2026?igsh=MjEzZ253MTN4N3E='; }, 500);" 
+               target="_blank" rel="noopener noreferrer" class="link-card">
+                <div class="icon-wrapper"><i class="fa-brands fa-instagram"></i></div>
+                <div class="text-wrapper">
+                    <span class="main-text">Instagram</span>
+                    <span class="sub-text">新品穿搭與限時動態</span>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <!-- Threads -->
+            <a href="barcelos://user?username=one2studio2026" 
+               onclick="setTimeout(function(){ window.location.href='https://www.threads.com/@one2studio2026'; }, 500);" 
+               target="_blank" rel="noopener noreferrer" class="link-card">
+                <div class="icon-wrapper"><i class="fa-brands fa-threads"></i></div>
+                <div class="text-wrapper">
+                    <span class="main-text">Threads</span>
+                    <span class="sub-text">日常隨筆與即時互動</span>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <!-- LINE -->
+            <a href="https://lin.ee/zFPXeFd" target="_blank" rel="noopener noreferrer" class="link-card">
+                <div class="icon-wrapper"><i class="fa-brands fa-line"></i></div>
+                <div class="text-wrapper">
+                    <span class="main-text">LINE 官方客服</span>
+                    <span class="sub-text">訂單查詢與一對一客服</span>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <!-- 賣貨便 -->
+            <a href="https://myship.7-11.com.tw/general/detail/GM2607213204339" target="_blank" rel="noopener noreferrer" class="link-card">
+                <div class="icon-wrapper"><i class="fa-solid fa-store"></i></div>
+                <div class="text-wrapper">
+                    <span class="main-text">7-11 賣貨便</span>
+                    <span class="sub-text">便利超商取貨付款</span>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+            <!-- 好賣+ -->
+            <a href="https://famistore.famiport.com.tw/famistore/users/6091800/malls/6a5f054e151dcd065a38c37f" target="_blank" rel="noopener noreferrer" class="link-card">
+                <div class="icon-wrapper"><i class="fa-solid fa-bag-shopping"></i></div>
+                <div class="text-wrapper">
+                    <span class="main-text">全家 好賣+</span>
+                    <span class="sub-text">全家賣場下單專區</span>
+                </div>
+                <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            </a>
+
+        </main>
+    </div>
+
+</body>
+</html>
